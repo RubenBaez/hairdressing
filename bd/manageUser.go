@@ -4,10 +4,11 @@ import (
 	"database/sql"
 	"fmt"
 	"hairdressing/driver"
+	"hairdressing/models"
 	"log"
 )
 
-func AddUser() *sql.Rows {
+func GetUser() *sql.Rows {
 
 	rows, err  := driver.Coonection().Query("SELECT * FROM users")
 	if err != nil {
@@ -25,9 +26,23 @@ func AddUser() *sql.Rows {
 		if err != nil {
 			log.Println("Error in get table rows")
 		}
-		fmt.Println("uid | username | department | created ")
-		fmt.Printf("%10v | %4v | %8v | %6v | %6v\n", id, age, first_name, last_name, email)
+		fmt.Println(id, age, first_name, last_name, email)
 	}
 
+	return rows
+}
+
+func AddUser(person *models.Person) sql.Result {
+
+	stmt, err := driver.Coonection().Prepare("insert into users values($1,$2,$3,$4,$5)")
+	if err != nil {
+		log.Println("Error in prepare statement to insert values", err)
+	}
+
+	rows, err := stmt.Exec(person.Id, person.Age, person.First_name, person.Last_name, person.Email)
+	if err != nil {
+		log.Println("Error in insert values", err)
+	}
+	fmt.Println(rows)
 	return rows
 }
