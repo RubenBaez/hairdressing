@@ -14,21 +14,6 @@ func GetUser() *sql.Rows {
 	if err != nil {
 		log.Println("Error in make query", err)
 	}
-	fmt.Println(rows)
-
-	for rows.Next() {
-		var id int
-		var age int
-		var first_name string
-		var last_name string
-		var email string
-		err = rows.Scan(&id, &age, &first_name, &last_name, &email)
-		if err != nil {
-			log.Println("Error in get table rows")
-		}
-		fmt.Println(id, age, first_name, last_name, email)
-	}
-
 	return rows
 }
 
