@@ -10,20 +10,26 @@ import (
 )
 
 func GetPerson(c *gin.Context) {
+	var value []byte
+	var values []byte
+	var p []models.Person
+	var person models.Person
 	rows := bd.GetUser()
 	for rows.Next() {
-		var person models.Person
 		err := rows.Scan(&person.Id, &person.Age, &person.First_name, &person.Last_name, &person.Email)
 		if err != nil {
 			log.Println("Error in get table rows")
 		}
-		fmt.Println(person.Id, person.Age, person.First_name, person.Last_name, person.Email)
-		value, err := json.Marshal(person)
+		value, err = json.Marshal(person)
+		values = append(value)
+		p = append(p, person)
+		fmt.Println(values)
 		if err != nil {
 			log.Println("Error in person to try parse json")
 		}
-		c.Writer.Header().Set("Content-Type","application/json")
-		c.Writer.WriteHeader(200)
-		c.Writer.Write(value)
 	}
+	c.JSON(200, map[string][]models.Person{
+		"ConsultClients":p,
+	})
+	p = nil
 }

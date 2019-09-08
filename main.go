@@ -7,14 +7,15 @@ import (
 
 func main() {
 
-	r := gin.Default()
+	router := gin.Default()
 
-	r.GET("get/client/v1", func(context *gin.Context) {
+	router.GET("get/client/v1", func(context *gin.Context) {
 		handler.GetPerson(context)
 	})
 
-	r.POST("/create/client/v1", func(context *gin.Context) {
+	router.POST("/create/client/v1", func(context *gin.Context) {
 		handler.CreatePerson(context)
 	})
 
+	router.Run(":8000")
 }
