@@ -3,22 +3,27 @@ package driver
 import (
 	"database/sql"
 	"fmt"
-	_ "github.com/lib/pq"
+	"hairdressing/models"
 	"log"
+
+	_ "github.com/lib/pq"
+	"github.com/tkanos/gonfig"
 )
 
-const (
-	host     = "localhost"
-	port     = 5432
-	user     = "ruben"
-	password = "agosto14"
-	dbname   = "users"
-)
+var conf models.Configuration
+
+func init() {
+	Conf := models.Configuration{}
+	err := gonfig.GetConf("environment.json", &Conf)
+	if err != nil {
+		log.Println("missing data base connection file", err)
+	}
+}
 
 func Coonection() *sql.DB {
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
 		"password=%s dbname=%s sslmode=disable",
-		host, port, user, password, dbname)
+		string(conf.Host), conf.Port, string(conf.User), string(conf.Password), string(conf.Password))
 	db, err := sql.Open("postgres", psqlInfo)
 	if err != nil {
 		log.Println("error database connection", err)
