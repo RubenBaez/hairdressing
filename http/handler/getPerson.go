@@ -2,7 +2,6 @@ package handler
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"hairdressing/bd"
 	"hairdressing/models"
@@ -10,8 +9,6 @@ import (
 )
 
 func GetPerson(c *gin.Context) {
-	var value []byte
-	var values []byte
 	var p []models.Person
 	var person models.Person
 	rows := bd.GetUser()
@@ -20,14 +17,13 @@ func GetPerson(c *gin.Context) {
 		if err != nil {
 			log.Println("Error in get table rows")
 		}
-		value, err = json.Marshal(person)
-		values = append(value)
+		_, err = json.Marshal(person)
 		p = append(p, person)
-		fmt.Println(values)
 		if err != nil {
 			log.Println("Error in person to try parse json")
 		}
 	}
+	c.Writer.Header().Set("Access-Control-Allow-Origin","http://localhost:3000")
 	c.JSON(200, map[string][]models.Person{
 		"ConsultClients":p,
 	})
