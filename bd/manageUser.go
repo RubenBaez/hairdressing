@@ -8,8 +8,22 @@ import (
 	"log"
 )
 
+func CreateTable() {
+	_, err := driver.Coonection().Query("CREATE TABLE IF NOT EXISTS users (" +
+		"id integer NOT NULL DEFAULT '1', " +
+		"age integer NOT NULL," +
+		"first_name varchar(45) NOT NULL," +
+		"last_name varchar(45) NOT NULL," +
+		"email varchar(45) NOT NULL" +
+		")")
+	if err != nil{
+		log.Println("Error in create table users", err)
+	}
+}
+
 func GetUser() *sql.Rows {
 
+	CreateTable()
 	rows, err  := driver.Coonection().Query("SELECT * FROM users")
 	if err != nil {
 		log.Println("Error in make query", err)
@@ -19,6 +33,7 @@ func GetUser() *sql.Rows {
 
 func AddUser(person *models.Person) sql.Result {
 
+	CreateTable()
 	stmt, err := driver.Coonection().Prepare("insert into users values($1,$2,$3,$4,$5)")
 	if err != nil {
 		log.Println("Error in prepare statement to insert values", err)
