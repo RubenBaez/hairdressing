@@ -1,0 +1,30 @@
+version: '3.4'
+services:
+  nginx:
+    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports:
+      - '3050:80'
+  postgres:
+    image: 'postgres:latest'
+  api:
+    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./
+    volumes:
+      - type: bind
+        source: ./
+        target: /app
+    environment:
+      - PGPORT=5432
+      - PGHOST=postgres
+      - PGUSER=postgres
+      - PGPASSWORD=postgres_pasword
+      - PGDATABASE=post gres
+  client:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ../../frontend/hairdressing/
