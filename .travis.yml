@@ -1,0 +1,8 @@
+sudo: required
+services:
+  - docker
+before_install:
+  - curl https://sdk.cloud.google.com | bash > /dev/null;
+  - source $HOME/google-cloud-sdk/path.bash.inc
+  - gcloud components updaate kubectl
+  - gcloud auth activate-service-account --hey-file samulti-cluster.json
