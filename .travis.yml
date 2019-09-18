@@ -13,7 +13,7 @@ before_install:
   - gcloud auth activate-service-account --key-file samulti-cluster.json
   - gcloud config set project gae-test-239716
   - gcloud config set compute/zone us-east1-b
-  - gcloud container clusters get-credentials multi-cluster
+  - gcloud container clusters get-credentials multi-client
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --pass-stdin 
   - docker build -t rubendario/multi-cluster-test-golang -f Dockerfile.dev
 
