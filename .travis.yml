@@ -15,7 +15,7 @@ before_install:
   - gcloud config set compute/zone us-east1-b
   - gcloud container clusters get-credentials multi-client
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin 
-  - docker build -t rubendario/multi-cluster-test-golang -f Dockerfile.dev
+  - docker build -t rubendario/multi-cluster-test-golang -f Dockerfile.dev .
 
 script:
   - docker run rubendario/multi-server-test-golang
