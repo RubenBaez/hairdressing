@@ -3,7 +3,7 @@ kind: Certificate
 metadata:
   name: k8-multi-com-tls
 spec:
-  secretName: rubendario
+  secretName: dariobaez
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer

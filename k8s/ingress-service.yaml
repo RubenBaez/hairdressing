@@ -12,9 +12,9 @@ spec:
     - hosts:
         - dariobaez.com
         - www.dariobaez.com
-      secretName: rubendario
+      secretName: dariobaez
   rules:
-    - host: rubendario.com
+    - host: dariobaez.com
       http:
         paths:
           - path: /?(.*)
