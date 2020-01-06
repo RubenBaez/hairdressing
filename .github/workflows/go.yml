@@ -9,7 +9,7 @@ jobs:
       GO111MODULE: off
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v1
       with:
         path: ./src/github.com/${{ github.repository }}
     - name: run echo
