@@ -4,11 +4,11 @@ jobs:
 
   test-gopath:
     env:
-      GOPATH: ${{ runner.workspace }}
+      GOPATH: '$GITHUB_WORKSPACE'
       GO111MODULE: off
     steps:
     - name: Checkout code
-      uses: actions/checkout@v1
+      uses: actions/checkout@v2
       with:
         path: ./src/github.com/${{ github.repository }}
 
