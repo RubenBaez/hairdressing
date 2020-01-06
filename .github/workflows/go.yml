@@ -2,6 +2,16 @@ name: Go
 on: [push]
 jobs:
 
+  test-gopath:
+    env:
+      GOPATH: ${{ runner.workspace }}
+      GO111MODULE: off
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v1
+      with:
+        path: ./src/github.com/${{ github.repository }}
+
   build:
     name: Build
     runs-on: ubuntu-latest
