@@ -3,6 +3,7 @@ on: [push]
 jobs:
 
   test-gopath:
+    runs-on: ubuntu-latest
     env:
       GOPATH: '$GITHUB_WORKSPACE'
       GO111MODULE: off
