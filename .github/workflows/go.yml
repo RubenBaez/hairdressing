@@ -13,7 +13,7 @@ jobs:
       with:
         path: ./src/github.com/${{ github.repository }}
     - name: run echo
-      run: echo '$GITHUB_WORKSPACE'
+      run: echo $GITHUB_WORKSPACE
     
   build:
     name: Build
